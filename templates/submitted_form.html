@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+  {% block mainArea %}
+    <div style="text-align: center;">
+        <p>
+        <h3>sequential</h3>
+        {{ sequential }}
+        <h3>restricted_simple</h3>
+        {{ restricted_simple }}
+        <h3>singles_doubles</h3>
+        {{ singles_doubles }}
+        <h3>iterated_singles_doubles</h3>
+        {{ iterated_singles_doubles }}
+        <h3>s1</h3>
+        {{ s1 }}
+        <h3>l1</h3>
+        {{ l1 }}
+        <h3>top_down</h3>
+        {{ top_down }}
+        <h3>top_down_alternating</h3>
+        {{ top_down_alternating }}
+        <h3>bottom_up</h3>
+        {{ bottom_up }}
+        <h3>bottom_up_alternating</h3>
+        {{ bottom_up_alternating }}
+        <h3>trump</h3>
+        {{ trump }}
+    </p>
+
+    <!--<button type="button" onclick="location.href='/submitted2'">Back</button>-->
+    <!--<br>-->
+    <button type="button" onclick="location.href='/use'">Back home</button>
+    </div>
+
+  {% endblock %}

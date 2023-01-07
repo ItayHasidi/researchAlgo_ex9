@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+  {% block mainArea %}
+    <form action="/form" method="post" >
+      <div style="text-align: center;">
+        {% if errors %}
+            <ul>
+              {% for error in errors %}
+                <li style="color: red;">{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          <br>
+          <br>
+          <input type="text" id="Agent1" name="Agent1" title="First Agent" placeholder="First Agent">
+          <br>
+          <input type="text" id="Agent2" name="Agent2" title="Second Agent" placeholder="Second Agent">
+          <br>
+          <label for="num_items">Number of items:</label>
+          <select id="num_items" name="num_items">
+            <option value="4">4</option>
+            <option value="6">6</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+            <option value="12">12</option>
+          </select>
+          <br>
+
+          <input type="submit" value="Submit">
+      </div>
+
+    </form>
+  {% endblock %}
+
+
+

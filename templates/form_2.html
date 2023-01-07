@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+  {% block mainArea %}
+    <form action="/form_2" method="post">
+      <div style="text-align: center;">
+        {% if errors %}
+          <ul>
+            {% for error in errors %}
+              <li style="color: red;">{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if inputs %}
+          <label><h3>Enter the items:</h3></label>
+          {% for input in inputs %}
+        <!--    <p><h4>Item Number {{ input.index }}:</h4></p>-->
+            <input type="text" name="item{{ input.index }}" value="{{ input.value }}" placeholder="Item number {{ input.index }}">
+            <br>
+            {% if agent1_name %}
+              <label>{{ agent1_name }}:</label>
+            {% else %}
+              <label>Agent 1:</label>
+            {% endif %}
+
+        <!--    <input type="number" id="agent_1_item_{{ input.index }}_score" name="agent_1_item_{{ input.index }}_score" placeholder="Score">-->
+            <select id="1_{{ input.index }}" name="1_{{ input.index }}" >
+            {% for i in num_items %}
+              {% if input.index == i-1 %}
+                <option value="{{ i }}" selected>{{ i }}</option>
+              {% else %}
+                <option value="{{ i }}">{{ i }}</option>
+              {% endif %}
+            {% endfor %}
+            </select>
+            <br>
+
+            {% if agent2_name %}
+              <label>{{ agent2_name }}:</label>
+            {% else %}
+              <label>Agent 2:</label>
+            {% endif %}
+        <!--    <input type="number" id="agent_2_item_{{ input.index }}_score" name="agent_2_item_{{ input.index }}_score" placeholder="Score">-->
+            <select id="2_{{ input.index }}" name="2_{{ input.index }}">
+            {% for i in num_items %}
+              {% if input.index == i-1 %}
+                <option value="{{ i }}" selected>{{ i }}</option>
+              {% else %}
+                <option value="{{ i }}">{{ i }}</option>
+              {% endif %}
+            {% endfor %}
+            </select>
+            <br>
+            <br>
+          {% endfor %}
+        <!--  <br>-->
+          <input type="submit" value="Submit">
+          <br>
+          <button type="button" onclick="location.href='/use'">Back home</button>
+          <br>
+        {% endif %}
+      </div>
+    </form>
+  {% endblock %}
