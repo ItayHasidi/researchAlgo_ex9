@@ -89,7 +89,7 @@ def submitted_form_2():
             res_bottom_up = bottom_up([Alice, George], items.copy())
             res_bottom_up_alternating = bottom_up_alternating([Alice, George], items.copy())
             res_trump = trump([Alice, George], items.copy())
-            return render_template('submitted_form.html', agent_1=agent.agent_1, agent2=agent.agent_2,
+            return render_template('submitted_form.html', agent_1=agent.agent_1, agent_2=agent.agent_2,
                                    sequential=res_sequential, restricted_simple=res_restricted_simple,
                                    singles_doubles=res_singles_doubles,
                                    iterated_singles_doubles=res_iterated_singles_doubles,

@@ -2,28 +2,149 @@
   {% block mainArea %}
     <div style="text-align: center;">
         <p>
-        <h3>sequential</h3>
-        {{ sequential }}
-        <h3>restricted_simple</h3>
-        {{ restricted_simple }}
-        <h3>singles_doubles</h3>
-        {{ singles_doubles }}
-        <h3>iterated_singles_doubles</h3>
-        {{ iterated_singles_doubles }}
-        <h3>s1</h3>
-        {{ s1 }}
-        <h3>l1</h3>
-        {{ l1 }}
-        <h3>top_down</h3>
-        {{ top_down }}
-        <h3>top_down_alternating</h3>
-        {{ top_down_alternating }}
-        <h3>bottom_up</h3>
-        {{ bottom_up }}
-        <h3>bottom_up_alternating</h3>
-        {{ bottom_up_alternating }}
-        <h3>trump</h3>
-        {{ trump }}
+        <h2>sequential</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in sequential %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>restricted_simple</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in restricted_simple %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>singles_doubles</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in singles_doubles %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>iterated_singles_doubles</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in iterated_singles_doubles %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>s1</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in s1 %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>l1</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in l1 %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>top_down</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in top_down %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>top_down_alternating</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in top_down_alternating %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>bottom_up</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in bottom_up %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>bottom_up_alternating</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in bottom_up_alternating %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>trump</h2>
+        <table style=" margin-left: auto; margin-right: auto; text-align: center;">
+            <tr>
+                <th>{{ agent_1 }}</th>
+                <th>{{ agent_2 }}</th>
+            </tr>
+            {% for alloc in trump %}
+            <tr>
+                <td>{{ alloc[agent_1] }}</td>
+                <td>{{ alloc[agent_2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </p>
 
     <!--<button type="button" onclick="location.href='/submitted2'">Back</button>-->
