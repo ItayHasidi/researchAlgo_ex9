@@ -1,8 +1,9 @@
 import csv
+import os
 
 from flask import Flask, render_template, request
 
-# from fairpy imporrt fairpy
+# from fairpy import fairpy
 from fairpy.fairpy.items.two_players_fair_division import *
 
 
@@ -78,8 +79,8 @@ def submitted_form_2():
         if b_score != sum(agent.numbers):
             errors.append(f'Agent 2 has wrong scores, each score must occur only once.')
         if not errors:
-            Alice = fairpy.agents.AdditiveAgent(a_scores, name=agent.agent_1)
-            George = fairpy.agents.AdditiveAgent(b_scores, name=agent.agent_2)
+            Alice = fairpy.fairpy.agents.AdditiveAgent(a_scores, name=agent.agent_1)
+            George = fairpy.fairpy.agents.AdditiveAgent(b_scores, name=agent.agent_2)
             res_sequential = sequential([Alice, George], items.copy())
             res_restricted_simple = restricted_simple([Alice, George], items.copy())
             res_singles_doubles = singles_doubles([Alice, George], items.copy())
@@ -130,40 +131,51 @@ def upload_page():
 
 @app.route('/upload_file', methods=['POST'])
 def upload_file():
-    file = request.files['file']
+    data = []
+    if request.method == 'POST':
+        if request.files:
+            uploaded_file = request.files['file'] # This line uses the same variable and worked fine
+            filepath = os.path.join(app.config['FILE_UPLOADS'], uploaded_file.filename)
+            uploaded_file.save(filepath)
+            with open(filepath) as file:
+                csv_file = csv.reader(file)
+                for row in csv_file:
+                    data.append(row)
+
+    # file = request.files['file']
     # if file.filename == '':
     #     # No file was selected
     #     return 'No file selected'
     # if file and allowed_file(file.filename):
-    with open(file.filename, 'r') as csv_file:
-        # Read the contents of the file into a list of rows
-        rows = []
-        reader = csv.reader(csv_file)
-        # print(reader)
-        for row in reader:
-            # print(row)
-            rows.append(row)
-        # Process the rows and do something with them
-        items, Alice, George = process_rows(rows)
-        res_sequential = sequential([Alice, George], items.copy())
-        res_restricted_simple = restricted_simple([Alice, George], items.copy())
-        res_singles_doubles = singles_doubles([Alice, George], items.copy())
-        res_iterated_singles_doubles = iterated_singles_doubles([Alice, George], items.copy())
-        res_s1 = s1([Alice, George], items.copy())
-        res_l1 = l1([Alice, George], items.copy())
-        res_top_down = top_down([Alice, George], items.copy())
-        res_top_down_alternating = top_down_alternating([Alice, George], items.copy())
-        res_bottom_up = bottom_up([Alice, George], items.copy())
-        res_bottom_up_alternating = bottom_up_alternating([Alice, George], items.copy())
-        res_trump = trump([Alice, George], items.copy())
-        return render_template('submitted_form.html', agent_1=Alice.name(), agent_2=George.name(),
-                               sequential=res_sequential, restricted_simple=res_restricted_simple,
-                               singles_doubles=res_singles_doubles,
-                               iterated_singles_doubles=res_iterated_singles_doubles,
-                               s1=res_s1, l1=res_l1, top_down=res_top_down,
-                               top_down_alternating=res_top_down_alternating,
-                               bottom_up=res_bottom_up, bottom_up_alternating=res_bottom_up_alternating,
-                               trump=res_trump)
+    # # with open(file.filename, 'r') as csv_file:
+    #     # Read the contents of the file into a list of rows
+    #     rows = []
+    #     reader = csv.reader(file)
+    #     # print(reader)
+    #     for row in reader:
+    #         # print(row)
+    #         rows.append(row)
+    #     # Process the rows and do something with them
+            items, Alice, George = process_rows(data)
+            res_sequential = sequential([Alice, George], items.copy())
+            res_restricted_simple = restricted_simple([Alice, George], items.copy())
+            res_singles_doubles = singles_doubles([Alice, George], items.copy())
+            res_iterated_singles_doubles = iterated_singles_doubles([Alice, George], items.copy())
+            res_s1 = s1([Alice, George], items.copy())
+            res_l1 = l1([Alice, George], items.copy())
+            res_top_down = top_down([Alice, George], items.copy())
+            res_top_down_alternating = top_down_alternating([Alice, George], items.copy())
+            res_bottom_up = bottom_up([Alice, George], items.copy())
+            res_bottom_up_alternating = bottom_up_alternating([Alice, George], items.copy())
+            res_trump = trump([Alice, George], items.copy())
+            return render_template('submitted_form.html', agent_1=Alice.name(), agent_2=George.name(),
+                                   sequential=res_sequential, restricted_simple=res_restricted_simple,
+                                   singles_doubles=res_singles_doubles,
+                                   iterated_singles_doubles=res_iterated_singles_doubles,
+                                   s1=res_s1, l1=res_l1, top_down=res_top_down,
+                                   top_down_alternating=res_top_down_alternating,
+                                   bottom_up=res_bottom_up, bottom_up_alternating=res_bottom_up_alternating,
+                                   trump=res_trump)
 
 
 def allowed_file(filename):
@@ -184,10 +196,13 @@ def process_rows(rows):
         agent_a_dict[str(items[i])] = int(agent_a_valuations[i])
         agent_b_dict[str(items[i])] = int(agent_b_valuations[i])
 
-    Alice = fairpy.agents.AdditiveAgent(agent_a_dict, name=name_a)
-    George = fairpy.agents.AdditiveAgent(agent_b_dict, name=name_b)
+    Alice = fairpy.fairpy.agents.AdditiveAgent(agent_a_dict, name=name_a)
+    George = fairpy.fairpy.agents.AdditiveAgent(agent_b_dict, name=name_b)
     return items, Alice, George
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=4531)
+    # debug=True, host="0.0.0.0", port=4531
+
+
