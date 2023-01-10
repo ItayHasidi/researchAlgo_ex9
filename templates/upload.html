@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block mainArea %}
+<form method="POST" action="/upload_file" enctype="multipart/form-data">
+    <body style="text-align: center;">
+      <h1>Upload CSV File</h1>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Select CSV file:</label><br>
+        <input type="file" id="file" name="file" accept=".csv"><br><br>
+        <input type="submit" value="Submit">
+      </form>
+    </body>
+</form>
+
+<!--{% if msg %}-->
+<!--    <h2>{{ msg }}</h2>-->
+<!--{% endif %}-->
+
+{% endblock %}

@@ -1,6 +1,8 @@
+import csv
+
 from flask import Flask, render_template, request
 
-from fairpy import fairpy
+# from fairpy imporrt fairpy
 from fairpy.fairpy.items.two_players_fair_division import *
 
 
@@ -70,7 +72,7 @@ def submitted_form_2():
                 temp_b = request.form[f'2_{i}']
                 b_score += int(temp_b)
                 b_scores[str(items[i])] = int(temp_b)
-        print(items, a_score, b_score, sum(agent.numbers))
+        # print(items, a_score, b_score, sum(agent.numbers))
         if a_score != sum(agent.numbers):
             errors.append(f'Agent 1 has wrong scores, each score must occur only once.')
         if b_score != sum(agent.numbers):
@@ -119,6 +121,72 @@ def about_page():
 @app.route('/links', methods=['GET', 'POST'])
 def links_page():
     return render_template('links.html')
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_page():
+    return render_template('upload.html')
+
+
+@app.route('/upload_file', methods=['POST'])
+def upload_file():
+    file = request.files['file']
+    # if file.filename == '':
+    #     # No file was selected
+    #     return 'No file selected'
+    # if file and allowed_file(file.filename):
+    with open(file.filename, 'r') as csv_file:
+        # Read the contents of the file into a list of rows
+        rows = []
+        reader = csv.reader(csv_file)
+        # print(reader)
+        for row in reader:
+            # print(row)
+            rows.append(row)
+        # Process the rows and do something with them
+        items, Alice, George = process_rows(rows)
+        res_sequential = sequential([Alice, George], items.copy())
+        res_restricted_simple = restricted_simple([Alice, George], items.copy())
+        res_singles_doubles = singles_doubles([Alice, George], items.copy())
+        res_iterated_singles_doubles = iterated_singles_doubles([Alice, George], items.copy())
+        res_s1 = s1([Alice, George], items.copy())
+        res_l1 = l1([Alice, George], items.copy())
+        res_top_down = top_down([Alice, George], items.copy())
+        res_top_down_alternating = top_down_alternating([Alice, George], items.copy())
+        res_bottom_up = bottom_up([Alice, George], items.copy())
+        res_bottom_up_alternating = bottom_up_alternating([Alice, George], items.copy())
+        res_trump = trump([Alice, George], items.copy())
+        return render_template('submitted_form.html', agent_1=Alice.name(), agent_2=George.name(),
+                               sequential=res_sequential, restricted_simple=res_restricted_simple,
+                               singles_doubles=res_singles_doubles,
+                               iterated_singles_doubles=res_iterated_singles_doubles,
+                               s1=res_s1, l1=res_l1, top_down=res_top_down,
+                               top_down_alternating=res_top_down_alternating,
+                               bottom_up=res_bottom_up, bottom_up_alternating=res_bottom_up_alternating,
+                               trump=res_trump)
+
+
+def allowed_file(filename):
+    # print(filename)
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'csv'
+
+
+def process_rows(rows):
+    # print(rows)
+    items = rows[0][1:]
+    name_a = rows[1][0]
+    name_b = rows[2][0]
+    agent_a_valuations = rows[1][1:]
+    agent_b_valuations = rows[2][1:]
+    agent_a_dict = {}
+    agent_b_dict = {}
+    for i in range(len(items)):
+        agent_a_dict[str(items[i])] = int(agent_a_valuations[i])
+        agent_b_dict[str(items[i])] = int(agent_b_valuations[i])
+
+    Alice = fairpy.agents.AdditiveAgent(agent_a_dict, name=name_a)
+    George = fairpy.agents.AdditiveAgent(agent_b_dict, name=name_b)
+    return items, Alice, George
 
 
 if __name__ == '__main__':
