@@ -2,6 +2,9 @@
   {% block mainArea %}
     <form action="/form" method="post" >
       <div style="text-align: center;">
+        <h3>Manual Input:</h3>
+        <p>Please enter the names of the two agents that are participating,
+        <br>after that enter the amount of items that need to be allocated between the two.</p>
         {% if errors %}
             <ul>
               {% for error in errors %}

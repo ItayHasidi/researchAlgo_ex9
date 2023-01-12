@@ -11,6 +11,9 @@
         {% endif %}
         {% if inputs %}
           <label><h3>Enter the items:</h3></label>
+        <p>Please enter in each field the name of the object that needs to be allocated.
+        <br>After that for each item please enter the score that each player gave that Item.
+        <br>Notice: each player gives each score once, i.e. each number in {{ num_items }} appears only once.</p>
           {% for input in inputs %}
         <!--    <p><h4>Item Number {{ input.index }}:</h4></p>-->
             <input type="text" name="item{{ input.index }}" value="{{ input.value }}" placeholder="Item number {{ input.index }}">

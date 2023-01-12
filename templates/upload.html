@@ -3,6 +3,13 @@
 <form method="POST" action="/upload_file" enctype="multipart/form-data">
     <body style="text-align: center;">
       <h1>Upload CSV File</h1>
+      <p>Please select a CSV that contains: In the first line: all the items.
+      <br>In the second line the first Agent's name and then the score that agent gave for each item under the correct item name.
+      <br>The same for the second item.
+      <br>Example: (note: dots represent spaces)
+      <br>|........|.a.|.b.|.c.|.d.|
+      <br>|.Alice..|.1.|.2.|.3.|.4.|
+      <br>|.George.|.4.|.3.|.2.|.1.|</p>
       <form action="/upload" method="post" enctype="multipart/form-data">
         <label for="file">Select CSV file:</label><br>
         <input type="file" id="file" name="file" accept=".csv"><br><br>
